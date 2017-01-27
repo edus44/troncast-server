@@ -1,0 +1,26 @@
+{
+  "name": "troncast-server",
+  "version": "0.0.1",
+  "description": "Server of Troncastt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edus44/troncast.git"
+  },
+  "keywords": [
+    "electron",
+    "vuejs",
+    "vue",
+    "troncast-server",
+    "chromecast"
+  ],
+  "author": "Eduardo Hidalgo H",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edus44/troncast-server/issues"
+  },
+  "homepage": "https://github.com/edus44/troncast-server#readme"
+}
