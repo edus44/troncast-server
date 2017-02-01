@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "start": "node .",
-    "dev": "DEBUG=tc* nodemon ."
-
+    "dev": "cross-env DEBUG=tc* nodemon ."
   },
   "repository": {
     "type": "git",
@@ -33,6 +32,7 @@
     "socket.io": "^1.7.2"
   },
   "devDependencies": {
+    "cross-env": "^3.1.4",
     "eslint": "^3.14.1",
     "eslint-config-gigigo-standard": "^0.1.9",
     "nodemon": "^1.11.0"
