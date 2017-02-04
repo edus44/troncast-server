@@ -21,6 +21,7 @@ require('./socket')(io)
 require('./routes')(app)
 
 //Start listening
-server.listen(port,()=>
-	debug('listening',port)
-)
+server.listen(port,()=>{
+    debug('listening',port)
+    require('./lib/repository')
+})
