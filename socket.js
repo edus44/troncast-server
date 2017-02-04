@@ -16,6 +16,7 @@ module.exports = function(io){
     const ns = {
         repository : io.of('/repository'),
         remote : io.of('/remote'),
+        channel : io.of('/channel'),
         screen : io.of('/screen')
     }
 
@@ -31,5 +32,9 @@ module.exports = function(io){
 
     ns.repository.on('connection',(socket)=>{
         debug('repository connected',socket.id)
+    })
+
+    ns.channel.on('connection',(socket)=>{
+        debug('channel connected',socket.id)
     })
 }

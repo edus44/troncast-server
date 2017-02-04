@@ -2,8 +2,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Decisionator</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
-    decisionator
+    <div id="app">
+        <div v-for="option in options">
+            {{ option }}
+        </div>
+        <b v-if="~selected">{{ options[selected] }}</b>
+    </div>
+    <script>
+
+    /* global TroncastChannel,Vue  */
+    /* eslint-disable indent, strict, no-console */
+    let app = new Vue({
+        el:'#app',
+        data:{
+            options: [],
+            selected:-1
+        },
+        methods:{
+            reset(){
+                this.options.splice(0)
+                this.selected = -1
+            },
+            add(option){
+                this.options.push(option)
+            },
+            choose(){
+                this.selected = Math.floor( Math.random() * this.options.length )
+            }
+        }
+    })
+
+    TroncastChannel.onConfigure(function*(){
+        let result
+        let form = {
+            title:'Add hard option',
+            elements:[
+                {name:'option'   , label:'Hard option' , type:'input'},
+                {name:'continue' , label:'Add more'    , type:'button'},
+                {name:'finish'   , label:'Finish'      , type:'button'},
+            ]
+        }
+
+        app.reset()
+        //REPL bucle
+        do{
+            result = yield form
+            if (result.option)
+                app.add(result.option)
+        }while(!result.finish)
+
+        app.choose()
+    })
+    </script>
 </body>
 </html>
