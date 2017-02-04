@@ -1,6 +1,6 @@
 {
   "name": "troncast-server",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.1",
   "description": "Server of Troncastt",
   "main": "index.js",
   "scripts": {
