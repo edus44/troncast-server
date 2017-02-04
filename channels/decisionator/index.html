@@ -37,8 +37,15 @@
 
     TroncastChannel.onConfigure(function*(){
         let result
-        let form = {
+        let initForm = {
             title:'Add hard option',
+            elements:[
+                {name:'option'   , label:'Hard option' , type:'input'},
+                {name:'continue' , label:'Add'         , type:'button'},
+            ]
+        }
+        let moreForm = {
+            title:'Add more hard options',
             elements:[
                 {name:'option'   , label:'Hard option' , type:'input'},
                 {name:'continue' , label:'Add more'    , type:'button'},
@@ -47,9 +54,10 @@
         }
 
         app.reset()
+
         //REPL bucle
         do{
-            result = yield form
+            result = yield (app.options.length ? moreForm : initForm)
             if (result.option)
                 app.add(result.option)
         }while(!result.finish)
