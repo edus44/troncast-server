@@ -4,11 +4,6 @@ const debug = require('debug')('tc:server:socket')
 
 const forwarder = require('./lib/forwarder')
 
-// let localIp
-// require('dns').lookup(require('os').hostname(), (err,addr) => {
-//     localIp = addr
-// })
-
 module.exports = function(io){
 
     debug('init')
