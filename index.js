@@ -5,7 +5,9 @@ const port = 13370
 //Dependencies
 const debug = require('debug')('tc:server')
 const express = require('express')
+const bonjour = require('bonjour')()
 const http = require('http')
+
 
 debug('init')
 
@@ -25,3 +27,6 @@ server.listen(port,()=>{
     debug('listening',port)
     require('./lib/repository')
 })
+
+//Publish to net
+bonjour.publish({ name: 'Troncast', type: 'troncast', port: port })

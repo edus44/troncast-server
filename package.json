@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/edus44/troncast-server#readme",
   "dependencies": {
+    "bonjour": "^3.5.0",
     "debug": "^2.6.0",
     "express": "^4.14.0",
     "glob": "^7.1.1",
