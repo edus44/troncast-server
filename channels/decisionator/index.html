@@ -3,38 +3,85 @@
     <meta charset="UTF-8">
     <title>Decisionator</title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+    <style>
+    body{
+        margin:0;
+        font-family: 'Bangers',sans-serif;
+        background-color: #383B53;
+        color :#D4D6B9;
+        font-size: 50px;
+        display: flex;
+        flex-direction : column;
+        justify-content : center;
+        align-items : center;
+        text-align: center;
+    }
+    .result{
+        font-size: 100px;
+    }
+    </style>
 </head>
 <body>
     <div id="app">
-        <div v-for="option in options">
-            {{ option }}
+        <b v-if="!options.length">Add some options</b>
+
+        <div v-if="!~selected && !deciding" v-for="option,index in options">
+            {{ index+1 }}. {{ option }}
         </div>
-        <b v-if="~selected">{{ options[selected] }}</b>
+
+        <div v-if="deciding">
+            Deciding...
+            <br>
+            <img :src="image">
+        </div>
+
+        <b v-if="~selected" class="result">{{ options[selected] }}</b>
+
     </div>
     <script>
 
-    /* global TroncastChannel,Vue  */
+    /* global TroncastChannel,Vue,fetch  */
     /* eslint-disable indent, strict, no-console */
     let app = new Vue({
         el:'#app',
         data:{
             options: [],
-            selected:-1
+            selected:-1,
+            deciding: false,
+            image: ''
+        },
+        created(){
+            this.findImage
         },
         methods:{
             reset(){
                 this.options.splice(0)
+                this.deciding = false
                 this.selected = -1
             },
             add(option){
                 this.options.push(option)
             },
-            choose(){
-                this.selected = Math.floor( Math.random() * this.options.length )
+            decide(){
+                this.deciding = true
+                setTimeout(()=>{
+                    this.deciding = false
+                    this.selected = Math.floor( Math.random() * this.options.length )
+                    this.findImage()
+                },6000)
+            },
+            findImage(){
+                let tags = ['suspense','decide','undecided','mistery']
+                let tag = tags[Math.floor(Math.random()*tags.length)]
+
+                fetch('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='+tag)
+                    .then(response=>response.json())
+                    .then(body=>this.image=body.data.image_url)
             }
         }
     })
-
+    app.findImage()
     TroncastChannel.onConfigure(function*(){
         let result
         let initForm = {
@@ -62,7 +109,7 @@
                 app.add(result.option)
         }while(!result.finish)
 
-        app.choose()
+        app.decide()
     })
     </script>
 </body>
