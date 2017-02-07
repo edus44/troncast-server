@@ -29,4 +29,4 @@ server.listen(port,()=>{
 })
 
 //Publish to net
-bonjour.publish({ name: 'Troncast Server', type: 'troncast', port: port })
+bonjour.publish({ name: 'Troncast Server '+Date.now().toString(16), type: 'troncast', port: port })
