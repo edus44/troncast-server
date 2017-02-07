@@ -4,7 +4,7 @@
 
 TroncastChannel.onConfigure(function*(){
     let result
-    while(true){
+    do{
         result = yield {
             title:'Load url',
             elements:[
@@ -14,6 +14,7 @@ TroncastChannel.onConfigure(function*(){
                 {name:'scrollDown'  , label:'Scroll down'  , type:'button'} ,
                 {name:'scrollLeft'  , label:'Scroll left'  , type:'button'} ,
                 {name:'scrollRight' , label:'Scroll right' , type:'button'} ,
+                {name:'cancel'      , label:'Cancel'       , type:'button'} ,
             ]
         }
         if (result.navigate)
@@ -30,5 +31,5 @@ TroncastChannel.onConfigure(function*(){
         else
         if (result.scrollRight)
             window.scrollTo( window.scrollX+100, window.scrollY)
-    }
+    }while(!result.cancel && !result.navigate)
 })
